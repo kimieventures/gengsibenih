@@ -1,3 +1,4 @@
 node_modules/
 alat/html/
 alat/out/
+__pycache__/
