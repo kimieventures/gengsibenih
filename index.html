@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Geng Si Benih · Mula belajar</title>
+<meta name="description" content="Belajar urus duit dan saham dari kosong, BM santai. Hari 1–3 percuma.">
+<style>
+:root{--bg:#FFF6E5;--ink:#3B2A1A;--muted:#5E4B37;--green:#5FA82E;--soft:#E4F3D6;--gold:#F5C04A}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding:24px 16px}
+.box{max-width:440px;margin:0 auto;display:grid;gap:16px}
+h1{font-size:30px;line-height:1.15;margin:8px 0 0;text-align:center}
+.sub{text-align:center;color:var(--muted);margin:0}
+.card{background:#fff;border:2px solid var(--ink);border-radius:18px;padding:18px;box-shadow:0 4px 0 var(--ink);display:grid;gap:12px}
+.btn{display:block;text-align:center;text-decoration:none;font-weight:800;border:2px solid var(--ink);border-radius:14px;padding:15px;background:var(--green);color:#fff;box-shadow:0 3px 0 var(--ink);font-size:19px;cursor:pointer;width:100%;font-family:inherit}
+.btn.alt{background:#fff;color:var(--ink)}
+ol{margin:0;padding-left:22px}
+li{margin:4px 0}
+.dots{display:inline-block;background:var(--soft);border-radius:8px;padding:0 8px;font-weight:800}
+.note{font-size:13px;color:var(--muted);text-align:center}
+.ok{background:var(--soft);border-radius:12px;padding:10px 12px;font-weight:700;text-align:center}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<main class="box">
+  <h1>🌱 Geng Si Benih</h1>
+  <p class="sub">Belajar urus duit &amp; saham dari kosong. Hari 1–3 percuma.</p>
+
+  <section class="card" id="biasa">
+    <p class="ok" id="tunggu">Sedang membuka kelas…</p>
+    <a class="btn" id="terus" href="#">Mula belajar ▶</a>
+  </section>
+
+  <section class="card" id="dalamApp" hidden>
+    <b>Buka dalam browser dulu ye 🙏</b>
+    <p style="margin:0">Browser dalam app ini tak dapat paparkan kelas kami. Sila buka dalam Chrome atau Safari:</p>
+    <a class="btn" id="android" href="#" hidden>Buka dalam Chrome ▶</a>
+    <a class="btn" id="ios" href="#" hidden>Buka dalam Safari ▶</a>
+    <ol id="langkah">
+      <li>Tekan <span class="dots">⋯</span> atau <span class="dots">⋮</span> di penjuru atas kanan</li>
+      <li>Pilih <b>"Buka dalam browser"</b> / <b>"Open in Chrome/Safari"</b></li>
+    </ol>
+    <button class="btn alt" id="salin" type="button">Salin pautan</button>
+    <p class="note" id="disalin" hidden>Pautan disalin. Tampal dalam Chrome atau Safari.</p>
+  </section>
+
+  <p class="note">Bahan pendidikan, bukan nasihat pelaburan. Kami tidak akan meminta anda memindahkan wang untuk dilaburkan. Tertipu? Hubungi NSRC 997.</p>
+</main>
+<script>
+(function () {
+  var APP = 'https://script.google.com/macros/s/AKfycbyTsRXFn83LhlYYKb9GD5IsV3lkW1rkc_XKFWuYDngYWpmJpGB4yrFLip07IXWyWIvh/exec';
+  var OK = { tt: 1, ig: 1, fb: 1, yt: 1, th: 1, wa: 1 };
+  var s = (new URLSearchParams(location.search).get('s') || '').toLowerCase().slice(0, 4);
+  var dest = APP + (OK[s] ? '?s=' + s : '');
+  var ua = navigator.userAgent || '';
+  var inApp = /Instagram|FBAN|FBAV|FB_IAB|FBIOS|Messenger|musical_ly|Bytedance|TikTok|Line\/|Threads|Barcelona/i.test(ua);
+  var android = /Android/i.test(ua), ios = /iPhone|iPad|iPod/i.test(ua);
+  var $ = function (id) { return document.getElementById(id); };
+  $('terus').href = dest;
+  if (!inApp) { location.replace(dest); return; }
+  $('biasa').hidden = true; $('dalamApp').hidden = false;
+  if (android) {
+    var a = $('android');
+    a.href = 'intent://' + dest.replace(/^https:\/\//, '') + '#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url=' + encodeURIComponent(dest) + ';end';
+    a.hidden = false;
+    setTimeout(function () { location.href = a.href; }, 400);
+  }
+  if (ios) { var b = $('ios'); b.href = 'x-safari-' + dest; b.hidden = false; }
+  $('salin').addEventListener('click', function () {
+    var done = function () { $('disalin').hidden = false; };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(dest).then(done, function () { prompt('Salin pautan ini:', dest); });
+    else prompt('Salin pautan ini:', dest);
+  });
+})();
+</script>
+</body>
+</html>
