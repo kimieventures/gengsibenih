@@ -8,6 +8,7 @@ Folder ini milik team Affiliate (Chief of Staff + Content Studio). Ia berkongsi 
 | Repo ini | `video/`, `alat/` dan fail akar | `affiliate/` sahaja |
 | Folder Canva (akaun dikongsi) | "Si Benih - Aset Induk", "Pose Telus" | "Affiliate – Bab Duit" (FAHaIuwFN9U) |
 | Watak / maskot | Tunas, Pucuk, Kuntum | Si Sampul (sampul duit) |
+| Siri buku | "Tunas Baca Buku": buku pelaburan & ilmu pelabur (cth. The Intelligent Investor) | "Bab Duit": buku psikologi/tabiat duit (Musim 1: The Psychology of Money) |
 | Hashtag | #GengSiBenih | #BabDuit #JimatDuitRumah |
 | Masa TikTok | ≥3 jam dari post Affiliate | Bab Duit Isn/Rab/Jum 18:00, ≥3 jam dari post GSB |
 
