@@ -61,3 +61,6 @@ Ini mengelak kuota habis awal bulan.
 - Jangan ubah atau padam post team lain.
 - Tiada belanja tanpa kelulusan Boss.
 - Persetujuan penuh: `affiliate/README.md`.
+
+## 8. Tool content baharu (21 Nov)
+ViralKaya (teks/skrip) + Gemini Canvas CGI (gambar realistik): lihat `affiliate/PANDUAN-VIRALKAYA-GEMINI-CGI.md`.

@@ -18,3 +18,6 @@ Folder ini milik team Affiliate (Chief of Staff + Content Studio). Ia berkongsi 
 3. Canva AI (create-video, generate) memakai kuota yang dikongsi, jadi tiada penggunaan tanpa kelulusan Boss.
 4. Look & feel saling melengkapi: ilmu kewangan (GSB) dan bedah buku serta produk (Affiliate). Jangan ulang hook atau topik minggu yang sama, jadi semak getScheduledPosts 14 hari dahulu.
 5. Isu antara department dilaporkan dalam Jurnal masing-masing dan diselesaikan oleh Chief of Staff. Boss hanya diganggu jika perlu keputusan.
+
+## Tool content bersama (21 Nov 2026)
+Arahan Boss: kedua-dua team guna **ViralKaya** dan **Gemini Canvas CGI** untuk content lebih cepat & bermutu. Panduan penuh: `affiliate/PANDUAN-VIRALKAYA-GEMINI-CGI.md`.
