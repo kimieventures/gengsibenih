@@ -1,0 +1,22 @@
+# Siri: Dari Celik ke Sistem (Naluri vs Data)
+Siri video pendidikan keluarga Geng Si Benih. Pipeline sama seperti video GSB lain (`alat/`).
+
+## Struktur folder
+| Folder | Isi |
+|---|---|
+| `00-konsep/` | Konsep siri, watak, format, garis merah |
+| `01-skrip/` | Skrip TTS `epXX-<tajuk>.json` (N=Naluri/Osman, D=Data/Yasmin) |
+| `02-storyboard/` | Storyboard `epXX-storyboard.html` (disemak Azizul sebelum gambar dijana) |
+| `03-gambar/epXX/` | Gambar Gemini (nama fail ikut README dalam folder episod) |
+| `04-audio/epXX/` | Hasil `alat/tts.py` |
+| `05-babak/epXX/` | Skrip babak + HTML |
+| `06-render/` | Video siap `dcks-epXX-<tajuk>.mp4` (salinan akhir juga ke `video/`) |
+| `templat/` | Templat grafik dikongsi (carta purata, pai, kad soalan/jawapan, kad akhir) |
+
+## Aliran kerja
+1 Skrip → 2 Storyboard (semakan Azizul) → 3 Gambar (4 gambar, Gemini) → 4 Audio + babak → 5 Semak 4–6 frame → 6 Render sekali.
+
+## Status episod
+| EP | Tajuk | Bab | Skrip | Storyboard | Gambar | Video |
+|---|---|---|---|---|---|---|
+| 01 | Terlepas Bas | 5 | ✅ draf 2 | ✅ draf 1 | ⏳ | ⏳ |

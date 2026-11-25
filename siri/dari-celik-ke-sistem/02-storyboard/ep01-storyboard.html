@@ -1,0 +1,100 @@
+<title>Storyboard EP01 Terlepas Bas</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;800&family=Inter:wght@400;600&display=swap">
+<style>
+/* Layout: header + responsive grid of 9:16 frame cards; Naluri warm, Data cool */
+:root{
+  --bg:#f3f4f2; --panel:#ffffff; --fg:#1c2321; --muted:#5d6763; --line:#dfe3e0;
+  --naluri:#c8642a; --data:#2f7fd6; --hl:#f5c542; --frame:#26302d; --frametext:#ffffff;
+  --display:"Sora",system-ui,sans-serif; --body:"Inter",system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141917; --panel:#1d2421; --fg:#e8ece9; --muted:#9aa5a0; --line:#2e3733;
+  --naluri:#e3824a; --data:#5aa2ef; --hl:#f5c542; --frame:#0c100e; --frametext:#ffffff; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141917; --panel:#1d2421; --fg:#e8ece9; --muted:#9aa5a0; --line:#2e3733;
+  --naluri:#e3824a; --data:#5aa2ef; --hl:#f5c542; --frame:#0c100e; --frametext:#ffffff; color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);line-height:1.5;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:24px 48px}
+.wrap{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(1.5rem,4vw,2.2rem);margin:0;text-wrap:balance}
+.meta{color:var(--muted);margin:0;max-width:70ch}
+.legend{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-size:.8rem;padding:3px 10px;border-radius:99px;border:1px solid var(--line);background:var(--panel)}
+.chip b.n{color:var(--naluri)} .chip b.d{color:var(--data)}
+h2{font-family:var(--display);font-size:1.1rem;margin:12px 0 0;letter-spacing:.02em}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.frame{position:relative;aspect-ratio:9/16;max-width:100%;border-radius:6px;overflow:hidden;background:var(--frame);color:var(--frametext);
+  display:flex;flex-direction:column;justify-content:space-between;padding:10px}
+.frame.n{background:linear-gradient(160deg,#5a2d14,#1b120c)} .frame.d{background:linear-gradient(160deg,#123150,#0b1420)}
+.frame.both{background:linear-gradient(90deg,#5a2d14 0 50%,#123150 50% 100%)} .frame.gfx{background:#10151a}
+.tag{font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;opacity:.8}
+.big{font-family:var(--display);font-weight:800;font-size:1.35rem;line-height:1.15;text-wrap:balance}
+.big em{font-style:normal;color:var(--hl)}
+.sub{font-size:.72rem;background:rgba(0,0,0,.55);padding:4px 6px;border-radius:4px}
+.label{font-size:.55rem;opacity:.7}
+.num{font-family:var(--display);font-weight:800;color:var(--muted);font-size:.8rem;font-variant-numeric:tabular-nums}
+.line{font-size:.85rem;margin:0}
+.line b{font-family:var(--display)}
+.line.n b{color:var(--naluri)} .line.d b{color:var(--data)}
+.note{font-size:.75rem;color:var(--muted);margin:0}
+.qa .frame{background:linear-gradient(180deg,#1d2a24,#0e1411)}
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>EP01 · Naluri vs Data: "Terlepas Bas"</h1>
+    <p class="meta">Siri Dari Celik ke Sistem (keluarga GSB) · Bab 5/6 · 9:16 · ±90 s · Draf storyboard 1 untuk semakan Azizul. Kotak berwarna = tempat gambar Gemini (IMG-A hingga D) atau grafik HTML; teks kuning = teks skrin.</p>
+  </header>
+  <div class="legend">
+    <span class="chip"><b class="n">Naluri</b> · bertanya · suara Osman</span>
+    <span class="chip"><b class="d">Data</b> · robot, bagi tunjuk ajar · suara Yasmin</span>
+    <span class="chip">4 gambar diguna semula · grafik dari templat HTML</span>
+  </div>
+
+  <h2>Babak 1: Cerita + jenaka</h2>
+  <div class="grid">
+    <article class="card"><div class="frame n"><span class="tag">IMG-A · mamak, malam</span><div class="big"><em>+33%</em> dalam 10 hari. Kami TERLEPAS.</div><span class="sub">Robot! Saham cip tu dah naik 33%!</span></div>
+      <span class="num">1 · 0–4 s · HOOK</span><p class="line n"><b>Naluri:</b> Robot! Saham cip tu dah naik tiga puluh tiga peratus! Aku dah cakap kan!</p><p class="note">Nombor wira zoom masuk. Tiada nama syarikat.</p></article>
+
+    <article class="card"><div class="frame gfx"><span class="tag">Grafik · tajuk berita rekaan</span><div class="big">CEO letak jawatan… <em>10 hari</em> kemudian, kembali.</div><span class="label">Ilustrasi · berdasarkan berita global Nov 2026</span></div>
+      <span class="num">2 · 4–9 s · TREND</span><p class="line d"><b>Data:</b> Betul. Bos dia letak jawatan, harga jatuh. Sepuluh hari lepas tu dia kembali, harga terus melompat.</p><p class="note">Sangkut pada cerita viral semasa tanpa nama.</p></article>
+
+    <article class="card"><div class="frame both"><span class="tag">IMG-C · meja dapur (skrin belah)</span><div class="big">Habis tu kenapa suruh <em>tunggu</em>?</div><span class="sub">Naluri | Data</span></div>
+      <span class="num">3 · 9–14 s</span><p class="line n"><b>Naluri:</b> Habis tu kenapa kau suruh tunggu masa dia jatuh?</p></article>
+
+    <article class="card"><div class="frame gfx"><span class="tag">Grafik · carta + garis 200 hari</span><div class="big">Bawah garis = <em>pisau jatuh</em></div><span class="label">Harga merah menembusi garis biru</span></div>
+      <span class="num">4 · 14–23 s</span><p class="line d"><b>Data:</b> Masa tu ada berita skandal. Harga jatuh bawah purata dua ratus hari. Peraturan saya: jangan tangkap pisau jatuh.</p></article>
+
+    <article class="card"><div class="frame n"><span class="tag">IMG-A (zoom, kecewa)</span><div class="big">Macam <em>durian</em> turun harga…</div><span class="sub">esok dah habis!</span></div>
+      <span class="num">5 · 23–30 s · JENAKA</span><p class="line n"><b>Naluri:</b> Peraturan, peraturan! Ni macam tak jadi beli durian masa murah, esok pagi dah habis licin!</p><p class="note">Jenaka tempatan; muzik "sedih" pendek.</p></article>
+
+    <article class="card"><div class="frame d"><span class="tag">IMG-B · Data + tablet</span><div class="big">Berapa kali beli jatuh… <em>terus jatuh?</em></div><span class="sub">↓ ↓ ↓</span></div>
+      <span class="num">6 · 30–37 s</span><p class="line d"><b>Data:</b> Tapi cuba ingat. Berapa kali naluri awak beli masa harga jatuh, dan terus jatuh?</p></article>
+
+    <article class="card"><div class="frame n"><span class="tag">IMG-D · tersengih malu</span><div class="big">"Ada la… <em>dua tiga</em> kali."</div><span class="sub">*garu kepala*</span></div>
+      <span class="num">7 · 37–41 s · JENAKA</span><p class="line n"><b>Naluri:</b> Hmm… ada la dua tiga kali. Termasuk durian tu, busuk.</p></article>
+
+    <article class="card"><div class="frame both"><span class="tag">IMG-C + ikon tiket</span><div class="big">Kita bagi naluri <em>tiket</em>.</div><span class="sub">Tiket?</span></div>
+      <span class="num">8 · 41–46 s</span><p class="line d"><b>Data:</b> Sebab tu kita tak buang naluri. Kita bagi dia tiket.</p><p class="line n"><b>Naluri:</b> Tiket?</p></article>
+
+    <article class="card"><div class="frame gfx"><span class="tag">Grafik · pai 95 / 5</span><div class="big"><em>5%</em> tiket keyakinan · 95% ikut peraturan</div><span class="label">Contoh sahaja</span></div>
+      <span class="num">9 · 46–57 s</span><p class="line d"><b>Data:</b> Tiket keyakinan. Satu jumlah kecil yang tetap, contohnya lima peratus modal, untuk idea naluri. Betul, untung. Salah, rugi kecil. Baki modal, ikut peraturan.</p></article>
+
+    <article class="card"><div class="frame both"><span class="tag">IMG-C</span><div class="big">Naluri bagi <em>idea</em>. Data bagi <em>had</em>.</div></div>
+      <span class="num">10 · 57–63 s</span><p class="line n"><b>Naluri:</b> Jadi aku masih boleh ikut gerak hati?</p><p class="line d"><b>Data:</b> Boleh. Cuma bersaiz. Naluri bagi idea, Data bagi had.</p></article>
+  </div>
+
+  <h2>Babak 2: Soalan + jawapan (rumusan pengajaran)</h2>
+  <div class="grid qa">
+    <article class="card"><div class="frame"><span class="tag">Kad soalan</span><div class="big">❓ Kalau naluri dah <em>betul</em>, kenapa masih perlu peraturan?</div><span class="label">Jeda 2 s · "fikir dulu"</span></div>
+      <span class="num">11 · 63–68 s · SOALAN</span><p class="line n"><b>Naluri:</b> Robot, soalan terakhir. Kalau naluri aku dah betul, kenapa masih perlu peraturan?</p></article>
+
+    <article class="card"><div class="frame"><span class="tag">Kad jawapan · 3 poin</span><div class="big"><em>1</em> Betul sekali ≠ betul selalu<br><em>2</em> Peraturan jaga modal<br><em>3</em> Tiket bagi ruang naluri</div></div>
+      <span class="num">12 · 68–80 s · JAWAPAN</span><p class="line d"><b>Data:</b> Sebab betul sekali tak bermaksud betul selalu. Peraturan jaga modal masa naluri salah. Tiket keyakinan bagi ruang masa naluri betul. Dua-dua menang.</p><p class="note">Kad ni direka untuk disimpan (screenshot).</p></article>
+
+    <article class="card"><div class="frame"><span class="tag">Kad akhir</span><div class="big">Naluri + Data = <em>Sistem</em></div><span class="sub">Korang team Naluri ke team Data? Komen 👇</span></div>
+      <span class="num">13 · 80–90 s · CTA</span><p class="note">Teks: "Episod depan: macam mana robot ni tahu bila nak KELUAR?" · Link di bio (percuma). Label tetap: watak rekaan · ilustrasi · suara AI · bahan pendidikan, bukan nasihat pelaburan.</p></article>
+  </div>
+</div>
