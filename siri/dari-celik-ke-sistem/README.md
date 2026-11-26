@@ -20,6 +20,11 @@ Siri video pendidikan keluarga Geng Si Benih. Pipeline sama seperti video GSB la
 | EP | Tajuk | Bab | Skrip | Storyboard | Gambar | Video |
 |---|---|---|---|---|---|---|
 | 01 | Terlepas Bas | 5 | ✅ draf 3 | ✅ v2 | ➖ (gaya emoji) | ✅ emoji v2, menunggu semakan |
+| 02 | Bila nak KELUAR? | 2 | ✅ | ➖ | ➖ | ✅ v1 |
+| 03 | Strategi yang dibuang | 3 | ✅ | ➖ | ➖ | ✅ v1 |
+| 04 | Butang kecemasan | 4 | ✅ | ➖ | ➖ | ✅ v1 |
+| 05 | Kebal scam | 6 | ✅ | ➖ | ➖ | ✅ v1 |
+| 06 | Tambah modal bila rugi | 1 | ✅ | ➖ | ➖ | ✅ v1 |
 
 ## Gaya visual (keputusan Azizul 26/11)
 Watak emoji chat (set Noto, lesen terbuka): Naluri = emoji muka ikut emosi, Data = 🤖. Tanpa gambar CGI. Skrip babak masih menyokong `GAYA=foto` untuk ujian A/B.
