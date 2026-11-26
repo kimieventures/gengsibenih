@@ -9,7 +9,14 @@ from tbblib import *
 GAMBAR = os.path.join(SIRI, '03-gambar/ep01')
 AUDIO = os.path.join(SIRI, '04-audio/ep01')
 os.chdir(AUDIO)
-e = Ep('ep01', {3: 0.2, 5: 0.3, 7: 0.4, 11: 0.2, 14: 0.5, 16: 0.4}); S, E, w, T = e.S, e.E, e.w, e.T
+e = Ep('ep01')
+# v2: rapatkan jeda antara dialog (lebih laju, kurang kaku)
+GAP, JEDA = 0.12, {3: 0.3, 4: 1.1, 5: 0.2, 7: 0.3, 11: 0.2, 14: 0.4, 16: 0.3}
+_t, e.S = 0.35, []
+for _i, _r in enumerate(e.D):
+    _t += JEDA.get(_i, 0) if _i else 0; e.S.append(_t); _t += _r['words'][-1][1] + GAP
+e.END = e.S[-1] + e.D[-1]['dur']; e.T = round(e.END + 3.6, 2); e.E = e.S[1:] + [e.END + 0.2]
+S, E, w, T = e.S, e.E, e.w, e.T
 
 NAMA_IMG = {'A': ('img-a', 'Naluri di mamak, teruja'), 'B': ('img-b', 'Robot Data + tablet'),
             'C': ('img-c', 'Naluri + Data, meja dapur'), 'D': ('img-d', 'Naluri tersengih malu')}
@@ -23,8 +30,8 @@ def emoji_babak(k, t0, t1, ex=None, prop=''):
     span = f'<div style="position:absolute;left:0;right:0;top:1150px;text-align:center;font-size:70px;opacity:.35;letter-spacing:40px">{deco}</div>'
     if tempat: span += f'<div style="position:absolute;left:0;right:0;top:1245px;text-align:center;font-size:28px;letter-spacing:.2em;color:#ffffff88">{tempat.upper()}</div>'
     chars = ''
-    if n: chars += f'<div class="ew" style="left:{120 if d else 290}px;top:640px"><div class="em" style="font-size:{400 if d else 500}px">{n}</div><div class="nm" style="background:#c8642a">NALURI</div></div>'
-    if d: chars += f'<div class="ew" style="left:{580 if n else 290}px;top:660px"><div class="em" style="font-size:{360 if n else 460}px">{d}</div><div class="nm" style="background:#2f7fd6">DATA</div></div>'
+    if n: chars += f'<div class="ew" data-who="T" style="left:{120 if d else 290}px;top:640px"><div class="em" style="font-size:{400 if d else 500}px">{n}</div><div class="nm" style="background:#c8642a">NALURI</div></div>'
+    if d: chars += f'<div class="ew" data-who="K" style="left:{580 if n else 290}px;top:660px"><div class="em" style="font-size:{360 if n else 460}px">{d}</div><div class="nm" style="background:#2f7fd6">DATA</div></div>'
     if prop: chars += f'<div style="position:absolute;left:0;right:0;top:560px;text-align:center;font-size:150px">{prop}</div>'
     return item(t0, t1, f'<div style="position:absolute;inset:0;background:radial-gradient(circle at 50% 45%,{bg},#0b0f0d 75%)"></div>{span}{chars}', 'inset:0', 'emj', 'none')
 
@@ -110,6 +117,19 @@ for k, p in enumerate(pts):
 it += [foto('D', S[16], E[17] + 0.2, False, ex=('🤤', '🤖')),
        judul(S[16], E[16], f'Tapi kalau {hl("durian")} turun harga lagi?', 280, 'pop'),
        judul(S[17], E[17] + 0.2, '"Saya tak buat ramalan durian." 🤖', 280, 'pop')]
+# v2: reaksi lawak (emoji pop) + kesan bunyi
+SFX = []
+def rx(t0, dur, html, style, lp='wig', bunyi='pop'):
+    SFX.append((round(t0, 2), bunyi)); return item(t0, t0 + dur, html, style, 'rx', 'pop', lp)
+if EMOJI:
+    it += [rx(w(0, 'terlepas'), 1.6, '💢', 'left:800px;top:620px;font-size:150px', 'pulse', 'boing'),
+           rx(w(3, 'tiga') + 0.5, 1.2, '🦗 krik… krik…', 'left:300px;right:300px;top:1210px;font-size:44px;color:#cfd8d4', 'bob', 'krik'),
+           rx(w(6, 'dapur'), 1.2, '🍳', 'left:820px;top:760px;font-size:150px', 'shake', 'pop'),
+           rx(w(8, 'busuk'), 1.6, '🤢💨', 'left:770px;top:560px;font-size:130px', 'shake', 'boing'),
+           rx(w(10, 'konsert'), 1.4, '🎤🎸✨', 'left:300px;right:300px;top:470px;text-align:center;font-size:150px', 'wig', 'pop'),
+           rx(w(13, 'tipu'), 2.0, '🕶️', 'left:672px;top:735px;font-size:190px', '', 'whoosh'),
+           rx(w(17, 'durian') + 0.3, 1.6, '🙄', 'left:860px;top:600px;font-size:130px', 'bob', 'pop')]
+PUNCH = [w(0, 'terlepas'), w(2, 'dah'), w(3, 'tiga'), w(6, 'dapur'), w(8, 'busuk'), w(10, 'konsert'), w(13, 'tipu'), w(17, 'durian')]
 END = e.END + 0.2
 it += [item(END, T, '', 'inset:0;background:#0f1412', '', 'fade'),
        judul(END + 0.1, T, f'Naluri + Data<br>= {hl("Sistem")}', 330, 'pop'),
@@ -139,14 +159,38 @@ body{background:#0f1412!important}
 .kb{overflow:hidden}
 .ew{position:absolute;text-align:center;width:380px}
 .em{line-height:1;filter:drop-shadow(0 20px 30px rgba(0,0,0,.6))}
+.rx{text-align:center;filter:drop-shadow(0 10px 20px rgba(0,0,0,.6))}
+.emj{transform-origin:50% 55%}
 .nm{display:inline-block;margin-top:14px;color:#fff;font-size:30px;letter-spacing:.12em;border-radius:999px;padding:6px 22px}
 """
-JS2 = r"""
+JS2 = "const PUNCH=" + json.dumps([round(x, 2) for x in PUNCH]) + ";" + r"""
+const EW=[...document.querySelectorAll('.ew')],SC=[...document.querySelectorAll('.emj')];
+const R2=window.render;window.render=t=>{R2(t);const c=SUB.find(c=>t>=c.t0&&t<c.t1);
+ for(const el of EW){const talk=c&&c.who===el.dataset.who;el.style.transform=talk?`translateY(${-Math.abs(Math.sin(t*13))*22}px) rotate(${Math.sin(t*6)*4}deg) scale(1.05)`:`translateY(${Math.sin(t*2)*6}px) scale(.93)`;el.style.opacity=talk||!c?1:.82}
+ let k=0;for(const p of PUNCH){if(t>=p&&t<p+0.9)k=Math.max(k,Math.exp(-(t-p)*5))}
+ for(const s of SC){s.style.transform=k?`scale(${1+0.08*k}) translateX(${Math.sin(t*60)*12*k}px)`:''}};
 const KB=[...document.querySelectorAll('.kb')];const R1=window.render;window.render=t=>{R1(t);for(const k of KB){const t0=+k.dataset.t0,t1=+k.dataset.t1;
  const p=Math.min(1,Math.max(0,(t-t0)/Math.max(1,t1-t0)));const s=k.classList.contains('zin')?1+0.10*p:1.10-0.10*p;const im=k.firstElementChild;if(im)im.style.transform=`scale(${s})`;}};
 """
 e.write(it, CSS2, JS2)
 html = open('ep01.html').read().replace("NAMA={T:['TUNAS','#5FA82E'],K:['KUNTUM','#D4574B']}", "NAMA={T:['NALURI','#c8642a'],K:['DATA 🤖','#2f7fd6']}")
 open(os.path.join(HERE, 'ep01.html'), 'w').write(html); os.remove('ep01.html')
+import subprocess
+def sfx(nama):
+    f = os.path.join(HERE, 'sfx_' + nama + '.wav')
+    if not os.path.exists(f):
+        src = {'pop': "aevalsrc='0.6*sin(2*PI*(500+900*t)*t)*exp(-18*t)':d=0.25",
+               'boing': "aevalsrc='0.6*sin(2*PI*(180+260*sin(2*PI*7*t))*t)*exp(-4*t)':d=0.7",
+               'whoosh': "anoisesrc=d=0.5:c=pink:a=0.5,bandpass=f=1200:w=900,afade=t=in:d=0.2,afade=t=out:st=0.25:d=0.25",
+               'krik': "aevalsrc='0.25*sin(2*PI*4200*t)*(gt(sin(2*PI*14*t),0.6))*lt(mod(t,0.6),0.25)':d=1.3"}[nama]
+        subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-f', 'lavfi', '-i', src, '-ar', '44100', '-ac', '2', f], check=True)
+    return f
+if SFX:
+    inp, flt = ['-i', 'ep01_audio.m4a'], []
+    for i, (t0, nama) in enumerate(SFX):
+        inp += ['-i', sfx(nama)]; flt.append(f'[{i+1}:a]adelay={int(t0*1000)}|{int(t0*1000)},volume=0.7[s{i}]')
+    flt.append('[0:a]' + ''.join(f'[s{i}]' for i in range(len(SFX))) + f'amix=inputs={len(SFX)+1}:normalize=0,alimiter=limit=0.95[o]')
+    subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', *inp, '-filter_complex', ';'.join(flt), '-map', '[o]', '-c:a', 'aac', '-b:a', '160k', 'ep01_sfx.m4a'], check=True)
+    os.replace('ep01_sfx.m4a', 'ep01_audio.m4a')
 shutil.move('ep01_audio.m4a', os.path.join(HERE, 'ep01_audio.m4a'))
 print('siap', os.path.join(HERE, 'ep01.html'), 'T =', T)

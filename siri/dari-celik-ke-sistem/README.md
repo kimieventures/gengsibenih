@@ -19,4 +19,8 @@ Siri video pendidikan keluarga Geng Si Benih. Pipeline sama seperti video GSB la
 ## Status episod
 | EP | Tajuk | Bab | Skrip | Storyboard | Gambar | Video |
 |---|---|---|---|---|---|---|
-| 01 | Terlepas Bas | 5 | ✅ draf 2 | ✅ draf 1 | ⏳ | ⏳ |
+| 01 | Terlepas Bas | 5 | ✅ draf 3 | ✅ v2 | ➖ (gaya emoji) | ✅ emoji v2, menunggu semakan |
+
+## Gaya visual (keputusan Azizul 26/11)
+Watak emoji chat (set Noto, lesen terbuka): Naluri = emoji muka ikut emosi, Data = 🤖. Tanpa gambar CGI. Skrip babak masih menyokong `GAYA=foto` untuk ujian A/B.
+V2: watak bergerak bila bercakap, reaksi emoji pada punchline, zoom + gegar, kesan bunyi, jeda lawak (krik krik).
