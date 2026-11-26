@@ -14,8 +14,24 @@ e = Ep('ep01', {3: 0.2, 5: 0.3, 7: 0.4, 11: 0.2, 14: 0.5, 16: 0.4}); S, E, w, T 
 NAMA_IMG = {'A': ('img-a', 'Naluri di mamak, teruja'), 'B': ('img-b', 'Robot Data + tablet'),
             'C': ('img-c', 'Naluri + Data, meja dapur'), 'D': ('img-d', 'Naluri tersengih malu')}
 
-def foto(k, t0, t1, zin=True, focus='50% 35%'):
-    """Gambar penuh skrin dengan gerakan kamera perlahan (Ken Burns)."""
+EMOJI = os.environ.get('GAYA', 'emoji') == 'emoji'   # GAYA=emoji (watak emoji chat) | GAYA=foto (gambar Gemini)
+LATAR = {'A': ('#3a2412', '🍵 🫓 🍳', 'Mamak, malam'), 'B': ('#10233a', '📊 💡', ''), 'C': ('#2a2018', '🍽️ 🏠', 'Rumah, malam'), 'D': ('#2a2018', '🍽️', '')}
+WAJAH = {'A': ('🤩', ''), 'B': ('', '🤖'), 'C': ('🤨', '🤖'), 'D': ('😅', '')}
+
+def emoji_babak(k, t0, t1, ex=None, prop=''):
+    bg, deco, tempat = LATAR[k]; n, d = ex or WAJAH[k]
+    span = f'<div style="position:absolute;left:0;right:0;top:1150px;text-align:center;font-size:70px;opacity:.35;letter-spacing:40px">{deco}</div>'
+    if tempat: span += f'<div style="position:absolute;left:0;right:0;top:1245px;text-align:center;font-size:28px;letter-spacing:.2em;color:#ffffff88">{tempat.upper()}</div>'
+    chars = ''
+    if n: chars += f'<div class="ew" style="left:{120 if d else 290}px;top:640px"><div class="em" style="font-size:{400 if d else 500}px">{n}</div><div class="nm" style="background:#c8642a">NALURI</div></div>'
+    if d: chars += f'<div class="ew" style="left:{580 if n else 290}px;top:660px"><div class="em" style="font-size:{360 if n else 460}px">{d}</div><div class="nm" style="background:#2f7fd6">DATA</div></div>'
+    if prop: chars += f'<div style="position:absolute;left:0;right:0;top:560px;text-align:center;font-size:150px">{prop}</div>'
+    return item(t0, t1, f'<div style="position:absolute;inset:0;background:radial-gradient(circle at 50% 45%,{bg},#0b0f0d 75%)"></div>{span}{chars}', 'inset:0', 'emj', 'none')
+
+def foto(k, t0, t1, zin=True, focus='50% 35%', ex=None, prop=''):
+    """Gambar penuh skrin dengan gerakan kamera perlahan (Ken Burns), atau babak watak emoji."""
+    if EMOJI:
+        return emoji_babak(k, t0, t1, ex, prop)
     f = sorted(glob.glob(os.path.join(GAMBAR, NAMA_IMG[k][0] + '*')))
     f = [x for x in f if x.lower().endswith(('.png', '.jpg', '.jpeg', '.webp'))]
     if f:
@@ -34,14 +50,14 @@ def hl(s): return f'<em>{s}</em>'
 
 it = [item(0, T, '', 'inset:0;background:#0f1412', '', 'none')]
 # 0 HOOK: Naluri ke kamera
-it += [foto('A', 0, E[1]),
+it += ([foto('A', 0, S[1], ex=('😤', ''), prop='📱'), foto('C', S[1], E[1], ex=('😤', '🤖'))] if EMOJI else [foto('A', 0, E[1])]) + [
        judul(0.15, E[0], f'RM1,000 boleh jadi<br>{hl("RM1,330")}', 230, 'pop'),
        judul(w(0, 'terlepas'), E[1], f'Aku {hl("TERLEPAS")}…', 560, 'pop', 'shake')]
 # 1 Data masuk
-it += [item(S[1], E[1], f'<img src="" style="display:none">🤖', 'right:60px;top:880px;font-size:260px', '', 'right', 'bob'),
-       item(S[1] + 0.6, E[1] + 2.0, 'Siapa betul?<br><b>Tengok sampai habis.</b>', 'left:90px;right:90px;top:760px', 'tg', 'pop')]
+it += ([] if EMOJI else [item(S[1], E[1], '🤖', 'right:60px;top:880px;font-size:260px', '', 'right', 'bob')]) + [
+       item(S[1] + 0.6, E[1] + 2.0, 'Siapa betul?<br><b>Tengok sampai habis.</b>', f'left:90px;right:90px;top:{1170 if EMOJI else 760}px', 'tg', 'pop')]
 # 2 +33%
-it += [foto('A', S[2], E[2], False, '50% 30%'),
+it += [foto('A', S[2], E[2], False, '50% 30%', ex=('😎', ''), prop='📈'),
        judul(S[2], E[2], f'{hl("+33%")}<br><small>dalam 10 hari</small>', 260, 'pop', 'pulse'),
        judul(w(2, 'dah'), E[2], '"Aku dah cakap kan!"', 640, 'up')]
 # 3 Data perli: 47 vs 3
@@ -59,17 +75,17 @@ chart = ('<svg width="900" height="620" viewBox="0 0 900 620"><path data-draw="1
 it += [item(S[5], E[5], '<div class="tag">BERITA SKANDAL · ILUSTRASI</div>' + chart, 'left:90px;top:330px', 'kadg', 'pop'),
        item(w(5, 'pisau'), E[5], '🔪 Jangan tangkap pisau jatuh', 'left:90px;right:90px;top:1110px', 'tg', 'pop', 'shake')]
 # 6 pisau dapur + durian, hook semula
-it += [foto('A', S[6], E[6], False, '50% 40%'),
+it += [foto('A', S[6], E[6], False, '50% 40%', ex=('😤', ''), prop='🔪❓'),
        judul(S[6], w(6, 'macam'), f'Pisau? Aku nak beli saham,<br>bukan {hl("pisau dapur")}!', 260, 'pop'),
        judul(w(6, 'macam'), E[6], f'Macam tak jadi beli {hl("durian")} masa murah…', 260, 'pop', 'wig'),
-       item(E[6] - 1.2, E[6] + 0.4, 'Tapi tunggu. Robot ni ada rahsia…', 'left:90px;right:90px;top:900px', 'tg', 'pop', 'pulse')]
+       item(E[6] - 1.2, E[6] + 0.4, 'Tapi tunggu. Robot ni ada rahsia…', f'left:90px;right:90px;top:{1170 if EMOJI else 900}px', 'tg', 'pop', 'pulse')]
 # 7 jatuh terus jatuh
-it += [foto('B', S[7], E[7]), judul(S[7], E[7], f'Beli masa jatuh…<br>{hl("terus jatuh")} ↓↓↓', 260, 'pop')]
+it += [foto('B', S[7], E[7], ex=('😬', '🤖'), prop='📉'), judul(S[7], E[7], f'Beli masa jatuh…<br>{hl("terus jatuh")} ↓↓↓', 260, 'pop')]
 # 8 malu
 it += [foto('D', S[8], E[8]), judul(w(8, 'tak'), E[8], '"Tak payah ungkit." 😅', 300, 'pop', 'wig')]
 # 9-10 tiket
-it += [foto('C', S[9], E[10]),
-       item(w(9, 'tiket'), E[10], '🎟️', 'left:400px;top:700px;font-size:260px', '', 'pop', 'wig'),
+it += [foto('C', S[9], E[10], ex=('🤔', '🤖')),
+       item(w(9, 'tiket'), E[10], '🎟️', f'left:400px;top:{420 if EMOJI else 700}px;font-size:260px', '', 'pop', 'wig'),
        judul(S[10], E[10], f'{hl("Tiket konsert?")} 🎤', 280, 'pop', 'shake')]
 # 11 pai 95/5
 pie = ('<div style="display:flex;gap:50px;align-items:center"><div style="width:380px;height:380px;border-radius:50%;'
@@ -78,9 +94,9 @@ pie = ('<div style="display:flex;gap:50px;align-items:center"><div style="width:
 it += [item(S[11], E[11], '<div class="tag">TIKET KEYAKINAN · CONTOH SAHAJA</div>' + pie, 'left:80px;right:80px;top:420px', 'kadg', 'pop'),
        item(w(11, 'salah'), E[11], 'Betul → untung · Salah → rugi sikit', 'left:90px;right:90px;top:1000px', 'tg', 'up')]
 # 12-13 idea vs had
-it += [foto('C', S[12], E[13], False),
+it += [foto('C', S[12], E[13], False, ex=('😊', '🤖')),
        judul(S[13], E[13], f'Naluri bagi {hl("idea")}.<br>Data bagi {hl("had")}.', 250, 'pop'),
-       item(w(13, 'tipu'), E[13], '🤖 Data tak tipu.', 'left:250px;right:250px;top:640px', 'tg', 'pop', 'pulse')]
+       item(w(13, 'tipu'), E[13], '🤖 Data tak tipu.', f'left:250px;right:250px;top:{1170 if EMOJI else 640}px', 'tg', 'pop', 'pulse')]
 # 14 SOALAN
 it += [item(S[14], E[14], '<div class="tag">SOALAN</div><div style="font-size:72px;line-height:1.2">❓ Kalau naluri dah betul,<br>kenapa masih perlu peraturan?</div>',
             'left:70px;right:70px;top:420px', 'kadg', 'drop')]
@@ -91,13 +107,13 @@ for k, p in enumerate(pts):
     t0 = [S[15], w(15, 'peraturan'), w(15, 'tiket')][k]
     it.append(item(t0, E[15], f'<b style="color:#f5c542">{k+1}</b> {p}', f'left:90px;right:90px;top:{480 + k*190}px', 'pt', 'left'))
 # 16-17 gelung + penutup
-it += [foto('D', S[16], E[17] + 0.2, False),
+it += [foto('D', S[16], E[17] + 0.2, False, ex=('🤤', '🤖')),
        judul(S[16], E[16], f'Tapi kalau {hl("durian")} turun harga lagi?', 280, 'pop'),
        judul(S[17], E[17] + 0.2, '"Saya tak buat ramalan durian." 🤖', 280, 'pop')]
 END = e.END + 0.2
 it += [item(END, T, '', 'inset:0;background:#0f1412', '', 'fade'),
        judul(END + 0.1, T, f'Naluri + Data<br>= {hl("Sistem")}', 330, 'pop'),
-       item(END + 0.7, T, 'Korang <b>team Naluri</b> ke <b>team Data</b>? Komen 👇', 'left:90px;right:90px;top:760px', 'tg', 'pop', 'pulse'),
+       item(END + 0.7, T, 'Korang <b>team Naluri</b> ke <b>team Data</b>? Komen 👇', f'left:90px;right:90px;top:{1170 if EMOJI else 760}px', 'tg', 'pop', 'pulse'),
        item(END + 1.3, T, 'Episod depan: robot ni tahu bila nak <em>KELUAR</em>?', 'left:90px;right:90px;top:1000px;font-size:46px', 'tg', 'up'),
        item(END + 1.8, T, 'Modul percuma · link di bio 🌱', 'left:200px;right:200px;top:1180px', 'chip', 'pop')]
 # lencana siri + label tetap
@@ -121,6 +137,9 @@ body{background:#0f1412!important}
 .sub span.on{background:#f5c542!important;color:#111!important}
 .who{top:1350px!important}
 .kb{overflow:hidden}
+.ew{position:absolute;text-align:center;width:380px}
+.em{line-height:1;filter:drop-shadow(0 20px 30px rgba(0,0,0,.6))}
+.nm{display:inline-block;margin-top:14px;color:#fff;font-size:30px;letter-spacing:.12em;border-radius:999px;padding:6px 22px}
 """
 JS2 = r"""
 const KB=[...document.querySelectorAll('.kb')];const R1=window.render;window.render=t=>{R1(t);for(const k of KB){const t0=+k.dataset.t0,t1=+k.dataset.t1;
